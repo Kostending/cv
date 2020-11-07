@@ -1,47 +1,55 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  selectCount,
+  setName,
+  setInitiated,
+  selectName,
+  selectInitiated
 } from './gameSlice';
+
 import styles from './Game.module.css';
 
-export function StartGame() {
+export async function StartGame() {
   console.log('Starting Game');
-  const iceAndFireEndpoint = 'https://anapioficeandfire.com/api/';
+  const gameIsActive = useSelector(selectInitiated);
+  const playerName = useSelector(selectName);
 
-  const response = fetch(`${iceAndFireEndpoint}/books/1`)
-    .then(
-      (response) => {
-        if (response.status !== 200) {
-          console.log(`Looks like there was a problem. Status Code: ${response.status}`);
-          return;
+  const dispatch = useDispatch();
+  
+  if(!gameIsActive){
+    dispatch(setInitiated(true));
+
+    if (playerName === '') {
+      console.log('case');
+      // Refactor to designated function
+      const iceAndFireEndpoint = 'https://anapioficeandfire.com/api/';
+
+      const response = await fetch(`${iceAndFireEndpoint}/books/1`);
+
+      if(response.ok) {
+        const json = await response.json();
+
+        const listOfPovCharacters = Object.values(json.povCharacters);
+        const numberOfPovCharacters = listOfPovCharacters.length;
+
+        if (numberOfPovCharacters) {
+          const randomCharacterId = Math.floor(Math.random() * Math.floor(numberOfPovCharacters));
+          const randomCharacterUrl = listOfPovCharacters[randomCharacterId];
+
+          const characterResponse = await fetch(randomCharacterUrl);
+          
+          if(characterResponse.ok) { 
+            const characterJson = await characterResponse.json();
+
+            dispatch(setName(characterJson.name));
+          }
         }
 
-        console.log('gettin json');
-        response.json().then((data) => {          
-          const listOfPovCharacters = Object.values(data.povCharacters);
-          const numberOfPovCharacters = listOfPovCharacters.length;
-
-          if (numberOfPovCharacters) {
-            const randomCharacterId = Math.floor(Math.random() * Math.floor(numberOfPovCharacters));
-            const randomCharacterUrl = data.povCharacters[randomCharacterId];
-
-            console.log(randomCharacterUrl);
-
-            fetch(randomCharacterUrl)
-              .then((response) => {
-                console.log(data);
-              });
-          }
-        });
+      } else {
+        console.log(`Looks like there was a problem. Status Code: ${response.status}`);
       }
-    )
-    .catch(function(err) {
-      console.log('Fetch Error :-S', err);
-    });
-
+    } else {
+      console.log('no, this case'); 
+    }
+  }
 }
