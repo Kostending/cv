@@ -11,6 +11,8 @@ import {
 } from './gameSlice';
 import styles from "./Game.module.css";
 import React, {useEffect, useRef} from "react";
+
+// Game loop magic
 import {startLoop} from "./loop";
 
 export function Game() {
@@ -28,8 +30,8 @@ export function Game() {
         if (!gameIsActive) {
             dispatch(setInitiated(true));
 
+            // Fetch data to use as dummy tamagotchi - TODO: refacter to designated function
             const fetchData = async () => {
-                // Refactor to designated function
                 const iceAndFireEndpoint = 'https://anapioficeandfire.com/api/';
 
                 const response = await fetch(`${iceAndFireEndpoint}/books/1`);
@@ -37,6 +39,7 @@ export function Game() {
                 if (response.ok) {
                     const json = await response.json();
 
+                    // Get how many characters there is and pick one at random
                     const listOfPovCharacters = Object.values(json.povCharacters);
                     const numberOfPovCharacters = listOfPovCharacters.length;
 
@@ -44,6 +47,7 @@ export function Game() {
                         const randomCharacterId = Math.floor(Math.random() * Math.floor(numberOfPovCharacters));
                         const randomCharacterUrl = listOfPovCharacters[randomCharacterId];
 
+                        // Fetch the randomly picked character
                         const characterResponse = await fetch(randomCharacterUrl);
 
                         if (characterResponse.ok) {
@@ -51,8 +55,11 @@ export function Game() {
 
                             dispatch(setName(characterJson.name));
 
+                            // Use character name to fetch image
                             const imageName = characterJson.name.replace(/\s+/g, '');
                             const lowercaseImageName = imageName.toLowerCase();
+
+                            // Update image ref and set in state for future use - TODO: refacter to only state
                             import(`../../assets/game/${lowercaseImageName}.jpg`).then(image => {
                                 imageRef.current.src = image.default;
                                 dispatch(setGameImage(image.default));
@@ -69,6 +76,7 @@ export function Game() {
         }
     });
 
+    // Increments the fedness
     const feed = () => dispatch(incrementFedness(feedAmount));
 
     return (
