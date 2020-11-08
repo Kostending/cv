@@ -15,5 +15,18 @@
 .gameImage {
     width: 100%;
 
+    padding-top: 10px;
     padding-bottom: 20px;
+}
+
+#feedButton {
+    transition: background-color .2s ease-out;
+    padding: 6px;
+    border: none;
+    border-radius: 3px;
+    float: right;
+}
+#feedButton:hover {
+    cursor: pointer;
+    background-color: #c7c7c7;
 }

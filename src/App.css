@@ -7,7 +7,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-    background-color: #000;
+    background-color: #212121;
     height: 100%;
 
     color: #fff;
@@ -26,6 +26,8 @@ body div {
 
     width: 800px;
     height: 100%;
+
+    border-radius: 2px;
 }
 
 #nav {
@@ -37,27 +39,30 @@ body div {
     list-style-type: none;
 
     margin-top: 50px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     padding: 20px;
 }
 
 #nav li a {
-    transition: font-size .2s ease-out;
+    transition: font-size .2s ease-out, color .2s ease-out;
     font-size: 1.2em;
     text-decoration: none;
-    color: #fff;
+    color: #c7c7c7;
+    font-weight: bold;
+    text-transform: capitalize;
 }
 
 #nav li a:hover {
     font-size: 1.5em;
+    color: #fff;
 }
 
 #profile-pic {
     width: 360px;
 
     padding-left: 10px;
-    padding-bottom: 10px; 
+    padding-bottom: 10px;
 }
 
 #about-me ul {
@@ -66,7 +71,17 @@ body div {
 
 /* Grid setup  */
 
-.container {
+.container-row > h1 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+h1 {
+    color: #c7c7c7;
+}
+
+.container-row {
     width: 100%;
     display: flex;
     justify-content: space-between;
