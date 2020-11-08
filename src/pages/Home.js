@@ -3,12 +3,12 @@ export const Home = function() {
   return (
     <div id="home-container" className="container">
       <div className="item">
-      <img id="profile-pic" src={ profilePic }/>
+      <img id="profile-pic" alt="Me" src={ profilePic }/>
       </div>
       <div className="item">
         <h1>About me</h1>
         <div id="about-me">
-            <p>I live in Hadsten, Denmark, with my girlfriend Stine and Son Sylvester. We resently became both houseowners and parents, so when we are not stopping Sylvester from causing trouble, we are fixing up the house.</p>
+            <p>I live in Hadsten, Denmark, with my girlfriend Stine and son Sylvester. We resently became both houseowners and parents, so when we are not stopping Sylvester from causing trouble, we are fixing up the house.</p>
             <p>I'm a passionate software devoloper that loves deep diving into new projects and technologies. I always wish to deliver the best possible project, both in regards to user experience an stability.</p>
             <p>As a developer, I ..</p>
             <ul>

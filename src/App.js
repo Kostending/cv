@@ -5,11 +5,10 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import { Counter } from './features/counter/Counter';
 import './App.css';
 
 import { Home } from './pages/Home.js';
-import { Game } from './pages/Game.js';
+import { Game } from './features/game/Game.js';
 
 function App() {
   return (
