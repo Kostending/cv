@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import { Home } from './pages/Home.js';
+import { Home } from './features/home/Home.js';
 import { Game } from './features/game/Game.js';
 
 function App() {

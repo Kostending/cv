@@ -1,6 +1,8 @@
 // Move this file to feature folder along with styling
 
-import profilePic from '../assets/anders.jpg';
+import profilePic from '../../assets/anders.jpg';
+
+import styles from './Home.module.css';
 
 export const Home = function () {
     return (
@@ -11,7 +13,7 @@ export const Home = function () {
 
             <div className="container-row">
                 <div className="item">
-                    <img id="profile-pic" alt="Me" src={profilePic}/>
+                    <img id={styles.profilePic} alt="Me" src={profilePic}/>
                 </div>
                 <div className="item">
                     <h1>About me</h1>
